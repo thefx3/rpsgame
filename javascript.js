@@ -1,10 +1,9 @@
 let humanScore = 0;
 let computerScore = 0;
-
+let counting = 0;
 
 function getComputerChoice(){
-    choice = Math.random()*3
-
+    let choice = Math.random()*3
     if (choice > 0 && choice <=1){
         return "Rock";
     }
@@ -17,21 +16,14 @@ function getComputerChoice(){
 }
 
 function getHumanChoice(){
-    choice = prompt("Rock ? Paper ? Scissors ?");
-    return choice; 
+    let choice = prompt("Rock ? Paper ? Scissors ?");
+    return choice;
 }
-
 
 function playRound(humanChoice,computerChoice){
 
-    let humanPoint = 0;
-    let computerPoint = 0;
-    // humanChoice will ask the human to choose
-        //Human choice can write anything - but only valid answers and case-insensitive
-        //Not take care of lower/uppercase
-    //computerChoice will generate a random choice
-    console.log(humanSelection + " is human choice");
-    console.log(computerSelection + " is computer choice");
+    console.log(humanChoice + " is human choice");
+    console.log(computerChoice + " is computer choice");
 
     if (computerChoice==humanChoice){
         console.log("It's a draw!");
@@ -40,18 +32,31 @@ function playRound(humanChoice,computerChoice){
        (humanChoice=="Rock" && computerChoice=="Scissors")||
        (humanChoice=="Scissors" && computerChoice=="Paper")){
         console.log("You win! " + humanChoice + " beats " + computerChoice);
-        humanPoint = humanPoint +1;
+        humanScore = humanScore +1;
     }
      else if ((humanChoice=="Rock" && computerChoice=="Paper")||
        (humanChoice=="Scissors" && computerChoice=="Rock")||
        (humanChoice=="Paper" && computerChoice=="Scissors")){
         console.log("You lose! " + computerChoice + " beats " + humanChoice);
-        computerPoint = computerPoint + 1;
+        computerScore = computerScore + 1;
     } 
-    console.log("Human : " + humanPoint + " | " + computerPoint + " Computer");
+    console.log("Human : " + humanScore + " | " + computerScore + " Computer");
+    
+    counting = counting +1;
+    console.log(counting);
+    return counting;
 }
 
 const humanSelection = getHumanChoice();
 const computerSelection = getComputerChoice();
 
-playRound(humanSelection, computerSelection);
+function playGame(){
+    console.log(counting);
+    if (counting>5){
+        counting = 0;
+    }
+    while (counting<5){
+        playRound(getHumanChoice(),getComputerChoice());
+        console.log("Human : " + humanScore + " | " + computerScore + " Computer");
+    }
+}
