@@ -22,6 +22,9 @@ function getHumanChoice(){
 
 function playRound(humanChoice,computerChoice){
 
+    humanChoice = humanChoice.charAt(0).toUpperCase()+humanChoice.slice(1).toLowerCase();
+    computerChoice = computerChoice.charAt(0).toUpperCase()+computerChoice.slice(1).toLowerCase();
+
     console.log(humanChoice + " is human choice");
     console.log(computerChoice + " is computer choice");
 
@@ -43,20 +46,38 @@ function playRound(humanChoice,computerChoice){
     console.log("Human : " + humanScore + " | " + computerScore + " Computer");
     
     counting = counting +1;
-    console.log(counting);
+    if ((computerScore || humanScore)==5){
+        if ((computerScore)==5) { console.log("The Winner is the Computer") }
+        else if ((computerScore)==5)  { console.log("The Winner is the Human") }
+        computerScore = 0;
+        humanScore = 0;
+    }
+    // console.log(counting);
     return counting;
 }
 
 const humanSelection = getHumanChoice();
 const computerSelection = getComputerChoice();
 
-function playGame(){
-    console.log(counting);
-    if (counting>5){
-        counting = 0;
-    }
-    while (counting<5){
-        playRound(getHumanChoice(),getComputerChoice());
-        console.log("Human : " + humanScore + " | " + computerScore + " Computer");
-    }
-}
+// function playGame(){
+//     console.log(counting);
+//     if (counting>5){
+//         counting = 0;
+//     }
+//     while (counting<5){
+//         playRound(getHumanChoice(),getComputerChoice());
+//         console.log("Human : " + humanScore + " | " + computerScore + " Computer");
+//     }
+// }
+
+const buttons = document.querySelectorAll("button");
+
+// we use the .forEach method to iterate through each button
+buttons.forEach((button) => {
+    // and for each one we add a 'click' listener
+    button.addEventListener("click", () => {
+
+      playRound(button.id,getComputerChoice());
+    });
+  });
+
